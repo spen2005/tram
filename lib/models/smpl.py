@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import numpy as np
 import torch
 from torch.nn import functional as F
@@ -13,19 +14,19 @@ from lib.core.constants import JOINT_MAP, JOINT_NAMES
 
 
 # SMPL data path
-SMPL_DATA_PATH = "data/smpl/"
+SMPL_DATA_PATH = Path(os.getenv("CHECKPOINT_DIR")) / "smpl"
 
-SMPL_MODEL_PATH = os.path.join(SMPL_DATA_PATH, "SMPL_NEUTRAL.pkl")
-SMPL_MEAN_PARAMS = os.path.join(SMPL_DATA_PATH, "smpl_mean_params.npz")
-SMPL_KINTREE_PATH = os.path.join(SMPL_DATA_PATH, "kintree_table.pkl")
-JOINT_REGRESSOR_TRAIN_EXTRA = os.path.join(SMPL_DATA_PATH, 'J_regressor_extra.npy')
-JOINT_REGRESSOR_H36M = os.path.join(SMPL_DATA_PATH, 'J_regressor_h36m.npy')
+SMPL_MODEL_PATH = SMPL_DATA_PATH / "SMPL_NEUTRAL.pkl"
+SMPL_MEAN_PARAMS = SMPL_DATA_PATH / "smpl_mean_params.npz"
+SMPL_KINTREE_PATH = SMPL_DATA_PATH / "kintree_table.pkl"
+JOINT_REGRESSOR_TRAIN_EXTRA = SMPL_DATA_PATH / 'J_regressor_extra.npy'
+JOINT_REGRESSOR_H36M = SMPL_DATA_PATH / 'J_regressor_h36m.npy'
 
 
 class SMPL(_SMPL):
 
     def __init__(self, create_default=False, *args, **kwargs):
-        kwargs["model_path"] = "data/smpl"
+        kwargs["model_path"] = SMPL_DATA_PATH
 
         # remove the verbosity for the 10-shapes beta parameters
         with contextlib.redirect_stdout(None):

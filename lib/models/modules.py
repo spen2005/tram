@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 import numpy as np
 import einops
 import torch
@@ -34,7 +36,8 @@ class SMPLTransformerDecoderHead(nn.Module):
         nn.init.xavier_uniform_(self.decshape.weight, gain=0.01)
         nn.init.xavier_uniform_(self.deccam.weight, gain=0.01)
 
-        mean_params = np.load('data/smpl/smpl_mean_params.npz')
+        pth = Path(os.getenv("CHECKPOINT_DIR")) / "smpl"
+        mean_params = np.load(pth / "smpl_mean_params.npz")
         init_body_pose = torch.from_numpy(mean_params['pose'].astype(np.float32)).unsqueeze(0)
         init_betas = torch.from_numpy(mean_params['shape'].astype('float32')).unsqueeze(0)
         init_cam = torch.from_numpy(mean_params['cam'].astype(np.float32)).unsqueeze(0)

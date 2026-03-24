@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, 'thirdparty/Tracking-Anything-with-DEVA')
+sys.path.insert(0, '../tram/thirdparty/Tracking-Anything-with-DEVA')
 
 from os import path
 from argparse import ArgumentParser
@@ -20,7 +20,7 @@ from deva.inference.demo_utils import get_input_frame_for_deva
 
 # Some DEVA tracking settings
 args = ['--chunk_size', '4', '--amp', '--temporal_setting', 'semionline',
-        '--size', '480', '--model', 'data/pretrain/DEVA-propagation.pth',
+        '--size', '480', '--model', '../tram/data/pretrain/DEVA-propagation.pth',
         '--suppress_small_objects', '--max_long_term_elements', '1000', '--max_num_objects', '50',
         '--detection_every', '5']
 
